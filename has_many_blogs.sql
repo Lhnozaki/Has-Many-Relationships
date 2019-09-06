@@ -1,0 +1,41 @@
+DROP TABLE IF EXISTS users
+CASCADE;
+DROP TABLE IF EXISTS posts
+CASCADE;
+DROP TABLE IF EXISTS comments
+CASCADE;
+
+CREATE TABLE users
+(
+  id SERIAL NOT NULL PRIMARY KEY,
+  username VARCHAR(90) NOT NULL,
+  first_name VARCHAR(90) DEFAULT null,
+  last_name VARCHAR
+  (90) DEFAULT null,
+  created_at TIMESTAMP NOT NULL DEFAULT now
+  (),
+  updated_at TIMESTAMP NOT NULL DEFAULT now
+  ()
+);
+
+CREATE TABLE posts
+(
+  id SERIAL NOT NULL PRIMARY KEY,
+  title VARCHAR(180) DEFAULT NULL,
+  url VARCHAR(510) DEFAULT NULL,
+  content TEXT DEFAULT NULL,
+  created_at TIMESTAMP NOT NULL DEFAULT now(),
+  updated_at TIMESTAMP NOT NULL DEFAULT now(),
+  user_id INTEGER REFERENCES users(id)
+);
+
+CREATE TABLE comments
+(
+  id SERIAL NOT NULL PRIMARY KEY,
+  body VARCHAR(510) DEFAULT NULL,
+  created_at TIMESTAMP NOT NULL DEFAULT now(),
+  updated_at TIMESTAMP NOT NULL DEFAULT now(),
+  user_id INTEGER REFERENCES users(id),
+  post_id INTEGER REFERENCES posts(id)
+);
+
